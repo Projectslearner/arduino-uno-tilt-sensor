@@ -1,26 +1,32 @@
 /*
-    Project name : Tilt Sensor
-    Modified Date: 09-06-2024
+    Project name : Arduino Uno Tilt Sensor
+    Modified Date: 29-06-2024
     Code by : Projectslearner
     Website : https://projectslearner.com/learn/arduino-uno-tilt-sensor
 */
 
-const int tiltPin = 2; // Define the pin connected to the tilt sensor
-const int ledPin = 13; // Define the pin connected to the LED
+// Define the pin connected to the tilt sensor
+const int tiltSensorPin = 2;
 
 void setup() {
-  pinMode(tiltPin, INPUT); // Set tiltPin as input
-  pinMode(ledPin, OUTPUT); // Set ledPin as output
+  // Initialize serial communication for debugging
+  Serial.begin(9600);
+
+  // Set the tilt sensor pin as input
+  pinMode(tiltSensorPin, INPUT);
 }
 
 void loop() {
-  int tiltState = digitalRead(tiltPin); // Read the tilt sensor state
-  
-  if (tiltState == HIGH) {
-    digitalWrite(ledPin, HIGH); // Turn on LED if tilt sensor is tilted
+  // Read the state of the tilt sensor
+  int sensorState = digitalRead(tiltSensorPin);
+
+  // Print the tilt sensor state to the Serial Monitor
+  if (sensorState == HIGH) {
+    Serial.println("Tilt detected");
   } else {
-    digitalWrite(ledPin, LOW); // Turn off LED if tilt sensor is not tilted
+    Serial.println("No tilt detected");
   }
-  
-  delay(100); // Add a small delay to debounce the sensor
+
+  // Add a small delay to avoid flooding the Serial Monitor
+  delay(200);
 }
